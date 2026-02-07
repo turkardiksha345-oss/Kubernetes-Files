@@ -1,0 +1,57 @@
+apiVersion: v1 
+kind: ConfigMap
+metadata:
+  name: my-cf
+data:
+  password: "0123"
+  user: "diksha"
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata: 
+  name: my-sts-2
+  labels:
+    app: my-db2
+spec:
+  template:
+    metadata:
+      name: my-pod 
+      labels:
+        app: my-db2
+    spec:
+      containers:
+        - name: my-cont2
+          image: mysql 
+          ports:
+            - containerPort: 3306
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: my-cf
+                  key: password 
+            - name: MYSQL_ROOT_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: my-cf
+                  key: user  
+  serviceName: my-svc 
+  replicas: 5
+  selector:
+    matchLabels:
+      app: my-db2 
+
+---
+
+apiVersion: v1 
+kind: Service 
+metadata:
+  name: my-svc 
+spec:
+  type: ClusterIP
+  ports:
+    - targetPort: 3306
+      port: 3306
+      protocol: TCP 
+  selector:
+    app: my-db2  
