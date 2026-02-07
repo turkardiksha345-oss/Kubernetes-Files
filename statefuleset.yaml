@@ -3,16 +3,16 @@ kind: StatefulSet
 metadata:
   name: my-sts
   labels: 
-    app: cont-db
+    app: cont-sts
 spec:
   template:
     metadata:
-      name: my-db-pod
+      name: my-sts-pod
       labels:
-        app: cont-db
+        app: cont-sts
     spec:
       containers:
-        - name: my-cont 
+        - name: my-cont-sts
           image: mysql:latest
           ports:
             - containerPort: 3306
@@ -22,4 +22,4 @@ spec:
   replicas: 10
   selector:
     matchLabels:
-      app: cont-db
+      app: cont-sts
