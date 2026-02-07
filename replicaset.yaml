@@ -4,7 +4,6 @@ metadata:
   name: my-rs
   labels:
     app: auth-app
-#pod portion
 spec:
   template:
     metadata:
