@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: StatefulSet 
+metadata:
+  name: my-sts
+  labels: 
+    app: cont-db
+spec:
+  template:
+    metadata:
+      name: my-db-pod
+      labels:
+        app: cont-db
+    spec:
+      containers:
+        - name: my-cont 
+          image: mysql:latest
+          ports:
+            - containerPort: 3306
+          env: 
+            - name: MYSQL_ROOT_PASSWORD
+              value: "pranit001"
+  replicas: 10
+  selector:
+    matchLabels:
+      app: cont-db
