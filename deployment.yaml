@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment 
+metadata:
+  name: my-deploy
+  labels:
+    app: auth-app
+spec:
+  template:
+    metadata:
+      name: my-pod-deploy
+      labels:
+        app: auth-app
+    spec:
+      containers:
+         - name: my-cont-deploy
+           image: httpd
+           ports:
+            - containerPort: 80
+  replicas: 4
+  strategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: auth-app
