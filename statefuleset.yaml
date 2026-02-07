@@ -18,7 +18,7 @@ spec:
             - containerPort: 3306
           env: 
             - name: MYSQL_ROOT_PASSWORD
-              value: "pranit001"
+              value: "Redhat123"
   replicas: 10
   selector:
     matchLabels:
